@@ -1,0 +1,350 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Blitz.RabbitMq.Library</name>
+    </assembly>
+    <members>
+        <member name="T:Blitz.RabbitMq.Library.IQueueEngine">
+            <summary>
+            IQueue Engine
+            </summary>
+        </member>
+        <member name="M:Blitz.RabbitMq.Library.IQueueEngine.Enqueue``1(``0,Blitz.RabbitMq.Library.Models.RabbitMqInstanceConfiguration)">
+            <summary>
+            Enqueue a message of type T
+            </summary>
+            <typeparam name="T">Type</typeparam>
+            <param name="message">message</param>
+            <param name="queueConfiguration">(sic)</param>
+        </member>
+        <member name="M:Blitz.RabbitMq.Library.IQueueEngine.SetupDequeueEvent(Blitz.RabbitMq.Library.Models.RabbitMqInstanceConfiguration,Blitz.RabbitMq.Library.QueueMessageHandler)">
+            <summary>
+            Get a message of type <c>IModel</c>
+            </summary>
+            <param name="queueConfiguration">(sic)</param>
+            <param name="handler">Handler to pass called back for each message</param>
+            <returns>IModel</returns>
+        </member>
+        <member name="M:Blitz.RabbitMq.Library.IQueueEngine.SendResponse(RabbitMQ.Client.IModel,RabbitMQ.Client.Events.BasicDeliverEventArgs,Blitz.RabbitMq.Library.Models.ReceivedMessageState)">
+            <summary>
+            Ack/Nack/Reject Message (must be called by the <c>QueueMessageHandler</c>
+            </summary>
+            <param name="model">IModel</param>
+            <param name="ea">BasicDeliverEventArgs</param>
+            <param name="state">ReceivedMessageState</param>
+        </member>
+        <member name="M:Blitz.RabbitMq.Library.IQueueEngine.PurgeQueue(Blitz.RabbitMq.Library.Models.RabbitMqInstanceConfiguration)">
+            <summary>
+            Delete all message in a queue (Purge)
+            </summary>
+            <param name="queueConfiguration">RabbitMqInstanceConfiguration</param>
+        </member>
+        <member name="T:Blitz.RabbitMq.Library.Libs.RabbitMqUtility">
+            <summary>
+            Utility: Useful RabbitMQ utilities
+            </summary>
+        </member>
+        <member name="M:Blitz.RabbitMq.Library.Libs.RabbitMqUtility.RabbitMQMakeConnectionFactory(System.String,System.Int32,System.String,System.String)">
+            <summary>
+            Make an RabbitMQ connection factory 
+            </summary>
+            <param name="hostname">(sic)</param>
+            <param name="port">Use <c>RabbitMq_Port_Default</c></param>
+            <param name="username">(sic)</param>
+            <param name="password">(sic)</param>
+            <returns>ConnectionFactory</returns>
+        </member>
+        <member name="M:Blitz.RabbitMq.Library.Libs.RabbitMqUtility.MessageBasicPropertiesPersistant(RabbitMQ.Client.IModel,System.Byte,System.Boolean,System.String)">
+            <summary>
+            Message Properties: Make some as persistant w. long expirations
+            </summary>
+            <param name="model">IModel</param>
+            <param name="deliveryMode">Enum</param>
+            <param name="persistent">bool</param>
+            <param name="expiration">ms as string</param>
+            <returns>IBasicProperties</returns>
+        </member>
+        <member name="M:Blitz.RabbitMq.Library.Libs.RabbitMqUtility.SetupDurableQueue(RabbitMQ.Client.IModel,Blitz.RabbitMq.Library.Models.RabbitMqEngineConfiguration,Blitz.RabbitMq.Library.Models.RabbitMqInstanceConfiguration)">
+            <summary>
+            Set up Durable Queue
+            </summary>
+            <param name="model">IModel</param>
+            <param name="engineConfiguration">RabbitMqEngineConfiguration</param>
+            <param name="queueConfiguration">RabbitMqInstanceConfiguration</param>
+        </member>
+        <member name="M:Blitz.RabbitMq.Library.Libs.RabbitMqUtility.Publish(RabbitMQ.Client.IModel,System.String,System.String,RabbitMQ.Client.IBasicProperties,System.Byte[])">
+            <summary>
+            Message: Publish to queue and exchange set up by <c>SetupDurableQueue</c>
+            </summary>
+            <param name="model">IModel</param>
+            <param name="exchangeName">(sic)</param>
+            <param name="routingKey">(sic)</param>
+            <param name="messageProperties">IBasicProperties</param>
+            <param name="body">bytes</param>
+        </member>
+        <member name="T:Blitz.RabbitMq.Library.Models.RabbitMqEngineConfiguration">
+            <summary>
+            Configuration: One RabbitMQ Instance
+            </summary>
+        </member>
+        <member name="F:Blitz.RabbitMq.Library.Models.RabbitMqEngineConfiguration.Localhost_Default">
+            <summary>
+            Localhost
+            </summary>
+        </member>
+        <member name="F:Blitz.RabbitMq.Library.Models.RabbitMqEngineConfiguration.Username_Default">
+            <summary>
+            Username: guest
+            </summary>
+        </member>
+        <member name="F:Blitz.RabbitMq.Library.Models.RabbitMqEngineConfiguration.Password_Default">
+            <summary>
+            Password: guest
+            </summary>
+        </member>
+        <member name="F:Blitz.RabbitMq.Library.Models.RabbitMqEngineConfiguration.Port_Default">
+            <summary>
+            Port
+            </summary>
+        </member>
+        <member name="F:Blitz.RabbitMq.Library.Models.RabbitMqEngineConfiguration.SendSleep_Default">
+            <summary>
+            Send Sleep Time (ms)
+            </summary>
+        </member>
+        <member name="F:Blitz.RabbitMq.Library.Models.RabbitMqEngineConfiguration.Messages_To_Send">
+            <summary>
+            Messages to send
+            </summary>
+        </member>
+        <member name="F:Blitz.RabbitMq.Library.Models.RabbitMqEngineConfiguration.Message_Expiration_Default">
+            <summary>
+            Message Property: Expiration 600 minutes
+            </summary>
+        </member>
+        <member name="F:Blitz.RabbitMq.Library.Models.RabbitMqEngineConfiguration.Message_DeliveryMode_Default">
+            <summary>
+            Message Property: Persistant Message
+            </summary>
+        </member>
+        <member name="F:Blitz.RabbitMq.Library.Models.RabbitMqEngineConfiguration.Message_Persistent_Default">
+            <summary>
+            Message Property: Persistant Message
+            </summary>
+        </member>
+        <member name="F:Blitz.RabbitMq.Library.Models.RabbitMqEngineConfiguration.Queue_Durable_Default">
+            <summary>
+            Queue Property: Persistant Queue
+            </summary>
+        </member>
+        <member name="F:Blitz.RabbitMq.Library.Models.RabbitMqEngineConfiguration.Queue_Exclusive_Default">
+            <summary>
+            Queue Property: Not exclusive
+            </summary>
+        </member>
+        <member name="F:Blitz.RabbitMq.Library.Models.RabbitMqEngineConfiguration.Queue_AutoDelete_Default">
+            <summary>
+            Queue Property: Do not auto delete
+            </summary>
+        </member>
+        <member name="P:Blitz.RabbitMq.Library.Models.RabbitMqEngineConfiguration.Host">
+            <summary>
+            Host (default: <c>Localhost_Default</c>)
+            </summary>
+        </member>
+        <member name="P:Blitz.RabbitMq.Library.Models.RabbitMqEngineConfiguration.Port">
+            <summary>
+            Port: (default: <c>Port_Default</c>)
+            </summary>
+        </member>
+        <member name="P:Blitz.RabbitMq.Library.Models.RabbitMqEngineConfiguration.Username">
+            Username: (default: <c>Username_Default</c>)
+        </member>
+        <member name="P:Blitz.RabbitMq.Library.Models.RabbitMqEngineConfiguration.Password">
+            Password: (default: <c>Password_Default</c>)
+        </member>
+        <member name="P:Blitz.RabbitMq.Library.Models.RabbitMqEngineConfiguration.MessageExpiration">
+            <summary>
+            MessageExpiration (default: <c>Message_Expiration_Default</c>)
+            <para>This is a long in milliseconds (ms) as a string</para>
+            </summary>
+        </member>
+        <member name="P:Blitz.RabbitMq.Library.Models.RabbitMqEngineConfiguration.MessageDeliveryMode">
+            <summary>
+            MessageDeliveryMode (default: <c>Message_DeliveryMode_Default</c>)
+            </summary>
+        </member>
+        <member name="P:Blitz.RabbitMq.Library.Models.RabbitMqEngineConfiguration.MessagePersistent">
+            <summary>
+            MessagePersistent (default: <c>Message_Persistent_Default</c> aka true)
+            </summary>
+        </member>
+        <member name="P:Blitz.RabbitMq.Library.Models.RabbitMqEngineConfiguration.QueueDurable">
+            <summary>
+            QueueDurable (default: <c>Queue_Durable_Default</c> aka true)
+            </summary>
+        </member>
+        <member name="P:Blitz.RabbitMq.Library.Models.RabbitMqEngineConfiguration.QueueExclusive">
+            <summary>
+              (default: <c>Queue_Exclusive_Default</c>) aka false
+            </summary>
+        </member>
+        <member name="P:Blitz.RabbitMq.Library.Models.RabbitMqEngineConfiguration.QueueAutoDelete">
+            <summary>
+            QueueAutoDelete (default: <c>Queue_AutoDelete_Default</c> aka false
+            </summary>
+        </member>
+        <member name="M:Blitz.RabbitMq.Library.Models.RabbitMqEngineConfiguration.SetProperty(System.String,System.String)">
+            <summary>
+            Set Property
+            </summary>
+            <param name="key">(sic)</param>
+            <param name="value">(sic)</param>
+        </member>
+        <member name="M:Blitz.RabbitMq.Library.Models.RabbitMqEngineConfiguration.CreateDefault">
+            <summary>
+            Create Default Configuration
+            </summary>
+            <returns>RabbitMqConfiguration</returns>
+        </member>
+        <member name="M:Blitz.RabbitMq.Library.Models.RabbitMqEngineConfiguration.ToString">
+            <summary>
+            Debugging string
+            </summary>
+            <returns>Debugging String</returns>
+        </member>
+        <member name="T:Blitz.RabbitMq.Library.Models.RabbitMqInstanceConfiguration">
+            <summary>
+            Configuration: Specific Queue
+            </summary>
+        </member>
+        <member name="F:Blitz.RabbitMq.Library.Models.RabbitMqInstanceConfiguration.ExchangeName_Default">
+            <summary>
+            Quick Name: Exchange
+            </summary>
+        </member>
+        <member name="F:Blitz.RabbitMq.Library.Models.RabbitMqInstanceConfiguration.QueueName_Default">
+            <summary>
+            Quick Name: Queue
+            </summary>
+        </member>
+        <member name="F:Blitz.RabbitMq.Library.Models.RabbitMqInstanceConfiguration.RoutingKey_Default">
+            <summary>
+            Quick Name: Routing Key
+            </summary>
+        </member>
+        <member name="P:Blitz.RabbitMq.Library.Models.RabbitMqInstanceConfiguration.ExchangeName">
+            <summary>
+            (optional) Exchange
+            </summary>
+        </member>
+        <member name="P:Blitz.RabbitMq.Library.Models.RabbitMqInstanceConfiguration.QueueName">
+            <summary>
+            (required) Queue Name
+            </summary>
+        </member>
+        <member name="P:Blitz.RabbitMq.Library.Models.RabbitMqInstanceConfiguration.RoutingKey">
+            <summary>
+            (optional) Route
+            </summary>
+        </member>
+        <member name="P:Blitz.RabbitMq.Library.Models.RabbitMqInstanceConfiguration.isValid">
+            <summary>
+            Is this valid?
+            </summary>
+        </member>
+        <member name="M:Blitz.RabbitMq.Library.Models.RabbitMqInstanceConfiguration.SetProperty(System.String,System.String)">
+            <summary>
+            Set Property
+            </summary>
+            <param name="key">(sic)</param>
+            <param name="value">(sic)</param>
+        </member>
+        <member name="M:Blitz.RabbitMq.Library.Models.RabbitMqInstanceConfiguration.ToString">
+            <summary>
+            To String
+            </summary>
+            <returns>Debug String</returns>
+        </member>
+        <member name="T:Blitz.RabbitMq.Library.Models.ReceivedMessageState">
+            <summary>
+            What is the state of the received message
+            </summary>
+        </member>
+        <member name="F:Blitz.RabbitMq.Library.Models.ReceivedMessageState.Unknown">
+            <summary>
+            Unknown
+            </summary>
+        </member>
+        <member name="F:Blitz.RabbitMq.Library.Models.ReceivedMessageState.SuccessfullyProcessed">
+            <summary>
+            Success
+            </summary>
+        </member>
+        <member name="F:Blitz.RabbitMq.Library.Models.ReceivedMessageState.UnsuccessfulProcessing">
+            <summary>
+            Unsuccessful
+            </summary>
+        </member>
+        <member name="F:Blitz.RabbitMq.Library.Models.ReceivedMessageState.MessageRejected">
+            <summary>
+            Bad message, rejected
+            </summary>
+        </member>
+        <member name="T:Blitz.RabbitMq.Library.QueueMessageHandler">
+            <summary>
+            Delegate Queue item handler
+            </summary>
+            <param name="queueEngine">IQueueEngine</param>
+            <param name="logger">ILogger</param>
+            <param name="model">IModel</param>
+            <param name="ea">BasicDeliverEventArgs</param>
+        </member>
+        <member name="T:Blitz.RabbitMq.Library.RabbitMQClient">
+            <summary>
+            Client: RabbitMQ Blitzkrieg Style
+            </summary>
+        </member>
+        <member name="M:Blitz.RabbitMq.Library.RabbitMQClient.#ctor(Microsoft.Extensions.Logging.ILogger,Microsoft.Extensions.Configuration.IConfigurationRoot)">
+            <summary>
+            CTOR
+            </summary>
+            <param name="logger">ILogger</param>
+            <param name="config">IConfigurationRoot</param>
+        </member>
+        <member name="P:Blitz.RabbitMq.Library.RabbitMQClient.KeepListening">
+            <summary>
+            Keep Listening
+            </summary>
+        </member>
+        <member name="M:Blitz.RabbitMq.Library.RabbitMQClient.SetupDequeueEvent(Blitz.RabbitMq.Library.Models.RabbitMqInstanceConfiguration,Blitz.RabbitMq.Library.QueueMessageHandler)">
+            <summary>
+            Dequeue a message 
+            </summary>
+            <param name="queueConfiguration">(sic)</param>
+            <param name="handler">QueueMessageHandler</param>
+        </member>
+        <member name="M:Blitz.RabbitMq.Library.RabbitMQClient.Enqueue``1(``0,Blitz.RabbitMq.Library.Models.RabbitMqInstanceConfiguration)">
+            <summary>
+            Enqueue message
+            </summary>
+            <typeparam name="T">T</typeparam>
+            <param name="message">Message of T</param>
+            <param name="queueConfiguration">RabbitMqInstanceConfiguration</param>
+        </member>
+        <member name="M:Blitz.RabbitMq.Library.RabbitMQClient.SendResponse(RabbitMQ.Client.IModel,RabbitMQ.Client.Events.BasicDeliverEventArgs,Blitz.RabbitMq.Library.Models.ReceivedMessageState)">
+            <summary>
+            Ack/Nack/Reject Message (must be called by the <c>QueueMessageHandler</c>
+            </summary>
+            <param name="model">IModel</param>
+            <param name="ea">BasicDeliverEventArgs</param>
+            <param name="state">ReceivedMessageState</param>
+        </member>
+        <member name="M:Blitz.RabbitMq.Library.RabbitMQClient.PurgeQueue(Blitz.RabbitMq.Library.Models.RabbitMqInstanceConfiguration)">
+            <summary>
+            Delete all message in a queue (Purge)
+            </summary>
+            <param name="queueConfiguration">QueueInstanceConfiguration</param>
+        </member>
+    </members>
+</doc>

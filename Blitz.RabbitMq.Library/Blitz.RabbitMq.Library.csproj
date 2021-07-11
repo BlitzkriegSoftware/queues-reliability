@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Description>1.0.0 - Basic RabbitMq helper</Description>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageIcon>favicon_32x32_o7Z_icon.ico</PackageIcon>
+    <PackageIconUrl />
+    <RepositoryUrl>https://github.com/BlitzkriegSoftware/queues-reliability</RepositoryUrl>
+    <RepositoryType>GITHUB</RepositoryType>
+    <PackageTags>Enterprise Queue;Patterns;Queues</PackageTags>
+    <PackageReleaseNotes>1.0.0 - Helper library for RabbitMQ</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>.\Blitz.RabbitMq.Library.xml</DocumentationFile>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Update="C:\code\blitz\RabbitMqDemo\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\favicon_32x32_o7Z_icon.ico">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
