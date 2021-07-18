@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Blitz.RabbitMq.Library
@@ -85,7 +86,8 @@ namespace Blitz.RabbitMq.Library
         /// <typeparam name="T">T</typeparam>
         /// <param name="message">Message of T</param>
         /// <param name="queueConfiguration">RabbitMqInstanceConfiguration</param>
-        public void Enqueue<T>(T message, Models.RabbitMqInstanceConfiguration queueConfiguration)
+        /// <param name="delayMilliseconds">Milliseconds to delay, default zero</param>
+        public void Enqueue<T>(T message, Models.RabbitMqInstanceConfiguration queueConfiguration, int delayMilliseconds = 0)
         {
             var factory = RabbitMqUtility.RabbitMQMakeConnectionFactory(this._engineConfiguration.Host, this._engineConfiguration.Port, this._engineConfiguration.Username, this._engineConfiguration.Password);
 
@@ -96,6 +98,13 @@ namespace Blitz.RabbitMq.Library
                     RabbitMqUtility.SetupDurableQueue(model, this._engineConfiguration, queueConfiguration);
 
                     var messageProperties = RabbitMqUtility.MessageBasicPropertiesPersistant(model, this._engineConfiguration.MessageDeliveryMode, this._engineConfiguration.MessagePersistent, this._engineConfiguration.MessageExpiration);
+                    messageProperties.Headers = new Dictionary<string, object>();
+
+                    // Deliver in the future
+                    if(delayMilliseconds > 0)
+                    {
+                        messageProperties.Headers.Add("x-delay", delayMilliseconds);
+                    }
 
                     // Make message
                     var json = JsonConvert.SerializeObject(message);

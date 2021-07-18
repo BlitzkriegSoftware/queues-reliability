@@ -1,15 +1,14 @@
 ﻿using Blitz.RabbitMq.Library;
 using Blitz.RabbitMq.Library.Models;
 using Blitz.Reliability.Demo.Models;
-using Blitz.Reliability.Demo.Transactions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using RabbitMQ.Client;
 
 namespace Blitz.Reliability.Demo.Workers
 {
@@ -20,8 +19,11 @@ namespace Blitz.Reliability.Demo.Workers
     {
         private readonly ILogger _logger;
         private readonly IConfigurationRoot _config;
-        private RabbitMQClient client;
         private static readonly BlitzkriegSoftware.SecureRandomLibrary.SecureRandom dice = new();
+        private static RabbitMqInstanceConfiguration RabbitConfig;
+        private static RabbitMQClient RabbitClient;
+
+        private const int UnitOfWorkMaxRetries = 3;
 
         /// <summary>
         /// CTOR
@@ -32,6 +34,13 @@ namespace Blitz.Reliability.Demo.Workers
         {
             this._logger = logger;
             this._config = config;
+
+            var queueConfig = new RabbitMq.Library.Models.RabbitMqInstanceConfiguration();
+            foreach (var c in this._config.AsEnumerable())
+            {
+                queueConfig.SetProperty(c.Key, c.Value);
+            }
+            RabbitConfig = queueConfig;
         }
 
         /// <summary>
@@ -42,33 +51,27 @@ namespace Blitz.Reliability.Demo.Workers
         {
             if (o == null) throw new ArgumentNullException(nameof(o));
 
-            var queueConfig = new RabbitMq.Library.Models.RabbitMqInstanceConfiguration();
-            foreach (var c in this._config.AsEnumerable())
+            this._logger.LogDebug(RabbitConfig.ToString());
+
+            RabbitClient = new RabbitMQClient(this._logger, this._config);
+
+            RabbitClient.PurgeQueue(RabbitConfig);
+
+            for (int i = 0; i < o.UnitOfWorkCount; i++)
             {
-                queueConfig.SetProperty(c.Key, c.Value);
+                var uow = Transactions.UnitOfWork.MakeUnitOfWork((i + 1));
+                RabbitClient.Enqueue<Transactions.UnitOfWork>(uow, RabbitConfig);
             }
 
-            this._logger.LogDebug(queueConfig.ToString());
-
-            this.client = new RabbitMQClient(this._logger, this._config);
-
-            this.client.PurgeQueue(queueConfig);
-
-            for(int i=0; i<o.UnitOfWorkCount; i++)
-            {
-                var uow = Transactions.UnitOfWork.MakeUnitOfWork();
-                this.client.Enqueue<Transactions.UnitOfWork>(uow, queueConfig);
-            }
-
-            int listenFor = o.UnitOfWorkCount * 10 + 5000;
+            int listenFor = o.UnitOfWorkCount * 100 + 5000;
 
             Task.Factory.StartNew(async () =>
             {
                 await Task.Delay(listenFor).ConfigureAwait(false);
-                this.client.KeepListening = false;
+                RabbitClient.KeepListening = false;
             });
 
-            this.client.SetupDequeueEvent(queueConfig, MyQueueMessageHandler);
+            RabbitClient.SetupDequeueEvent(RabbitConfig, MyQueueMessageHandler);
         }
 
         /// <summary>
@@ -79,9 +82,9 @@ namespace Blitz.Reliability.Demo.Workers
         /// <param name="model">IModel</param>
         /// <param name="ea">BasicDeliverEventArgs</param>
         public static void MyQueueMessageHandler(
-            IQueueEngine queueEngine, 
-            ILogger logger, 
-            IModel model, 
+            IQueueEngine queueEngine,
+            ILogger logger,
+            IModel model,
             BasicDeliverEventArgs ea)
         {
             if (queueEngine == null) throw new ArgumentNullException(nameof(queueEngine));
@@ -92,21 +95,48 @@ namespace Blitz.Reliability.Demo.Workers
             // Convert To Unit of Work
             var body = ea.Body;
             var text = Encoding.UTF8.GetString(body.ToArray());
-            var message = JsonConvert.DeserializeObject<Transactions.IUnitOfWork>(text);
+            var message = JsonConvert.DeserializeObject<Transactions.UnitOfWork>(text);
 
             var state = ReceivedMessageState.SuccessfullyProcessed;
 
+            message.Tracking.LastOperationStamp = DateTime.UtcNow;
+            message.Tracking.Tries++;
+
             // Simulate various conditions
             var chance = dice.Next(1, 100);
-            switch(chance)
+            switch (chance)
             {
-                case < 10:
+
+                case int i when (i < 10): // Process itself has throw a fatal exception, oh no
+                    state = ReceivedMessageState.MessageRejected;
+                    message.Tracking.Status = UnitOfWorkStatus.Fatal;
+                    message.Tracking.Error = new InvalidOperationException("Fatal Horribleness");
                     break;
+
+                case int i when ((i >= 10) && (i < 70)): // Need to Retry
+                    if (message.Tracking.Tries >= UnitOfWorkMaxRetries)
+                    {
+                        state = ReceivedMessageState.MessageRejected;
+                        message.Tracking.Status = UnitOfWorkStatus.Expired;
+                        message.Tracking.Error = new InvalidOperationException("Retries Exceeded");
+                    }
+                    else
+                    {
+                        state = ReceivedMessageState.SuccessfullyProcessed;
+                        message.Tracking.Status = UnitOfWorkStatus.Retried;
+                        // Compensate by putting the unit of work into the future
+                        int delay = (int)Math.Pow(2, (message.Tracking.Tries + 1)) * 500;
+                        RabbitClient.Enqueue<Transactions.IUnitOfWork>(message, RabbitConfig, delay);
+                    }
+                    break;
+
                 default: // success, dequeue the message as having been done
+                    state = ReceivedMessageState.SuccessfullyProcessed;
+                    message.Tracking.Status = UnitOfWorkStatus.Success;
                     break;
             }
 
-            logger.LogInformation("Received: {0}, Status: {1}", text, state);
+            logger.LogInformation($"Msg: {message}, State: {state}");
 
             queueEngine.SendResponse(model, ea, state);
         }

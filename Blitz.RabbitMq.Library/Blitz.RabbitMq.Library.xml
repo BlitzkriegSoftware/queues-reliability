@@ -9,13 +9,14 @@
             IQueue Engine
             </summary>
         </member>
-        <member name="M:Blitz.RabbitMq.Library.IQueueEngine.Enqueue``1(``0,Blitz.RabbitMq.Library.Models.RabbitMqInstanceConfiguration)">
+        <member name="M:Blitz.RabbitMq.Library.IQueueEngine.Enqueue``1(``0,Blitz.RabbitMq.Library.Models.RabbitMqInstanceConfiguration,System.Int32)">
             <summary>
             Enqueue a message of type T
             </summary>
             <typeparam name="T">Type</typeparam>
             <param name="message">message</param>
             <param name="queueConfiguration">(sic)</param>
+            <param name="delayMilliseconds">(optional) Delay Milliseconds</param>
         </member>
         <member name="M:Blitz.RabbitMq.Library.IQueueEngine.SetupDequeueEvent(Blitz.RabbitMq.Library.Models.RabbitMqInstanceConfiguration,Blitz.RabbitMq.Library.QueueMessageHandler)">
             <summary>
@@ -324,13 +325,14 @@
             <param name="queueConfiguration">(sic)</param>
             <param name="handler">QueueMessageHandler</param>
         </member>
-        <member name="M:Blitz.RabbitMq.Library.RabbitMQClient.Enqueue``1(``0,Blitz.RabbitMq.Library.Models.RabbitMqInstanceConfiguration)">
+        <member name="M:Blitz.RabbitMq.Library.RabbitMQClient.Enqueue``1(``0,Blitz.RabbitMq.Library.Models.RabbitMqInstanceConfiguration,System.Int32)">
             <summary>
             Enqueue message
             </summary>
             <typeparam name="T">T</typeparam>
             <param name="message">Message of T</param>
             <param name="queueConfiguration">RabbitMqInstanceConfiguration</param>
+            <param name="delayMilliseconds">Milliseconds to delay, default zero</param>
         </member>
         <member name="M:Blitz.RabbitMq.Library.RabbitMQClient.SendResponse(RabbitMQ.Client.IModel,RabbitMQ.Client.Events.BasicDeliverEventArgs,Blitz.RabbitMq.Library.Models.ReceivedMessageState)">
             <summary>

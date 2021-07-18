@@ -16,7 +16,8 @@ namespace Blitz.RabbitMq.Library
         /// <typeparam name="T">Type</typeparam>
         /// <param name="message">message</param>
         /// <param name="queueConfiguration">(sic)</param>
-        void Enqueue<T>(T message, Models.RabbitMqInstanceConfiguration queueConfiguration);
+        /// <param name="delayMilliseconds">(optional) Delay Milliseconds</param>
+        void Enqueue<T>(T message, Models.RabbitMqInstanceConfiguration queueConfiguration, int delayMilliseconds = 0);
 
         /// <summary>
         /// Get a message of type <c>IModel</c>

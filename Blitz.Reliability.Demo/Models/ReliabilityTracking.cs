@@ -10,7 +10,7 @@ namespace Blitz.Reliability.Demo.Models
         /// <summary>
         /// Retres
         /// </summary>
-        public int Retries { get; set; } = 0;
+        public int Tries { get; set; } = 0;
         /// <summary>
         /// Last Status
         /// </summary>
@@ -31,7 +31,7 @@ namespace Blitz.Reliability.Demo.Models
         /// <returns></returns>
         public override string ToString()
         {
-            return $"{LastOperationStamp:o}: {Status}, Retries: {Retries}, Ex: {Error.Message}";
+            return $"{LastOperationStamp:o}: {Status}, Retries: {Tries}, Ex: {Error?.Message}";
         }
     }
 }

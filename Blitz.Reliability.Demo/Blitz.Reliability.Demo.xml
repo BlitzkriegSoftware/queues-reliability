@@ -4,6 +4,18 @@
         <name>Blitz.Reliability.Demo</name>
     </assembly>
     <members>
+        <member name="T:Blitz.Reliability.Demo.Extensions.DictToJson">
+            <summary>
+            Dictionary to Json
+            </summary>
+        </member>
+        <member name="M:Blitz.Reliability.Demo.Extensions.DictToJson.ToJson(System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Returns Dictionary as Json
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
         <member name="T:Blitz.Reliability.Demo.Libs.AssembyInfoHelper">
             <summary>
             Helper: Assembly Info
@@ -91,7 +103,7 @@
             Reliability Tracking
             </summary>
         </member>
-        <member name="P:Blitz.Reliability.Demo.Models.ReliabilityTracking.Retries">
+        <member name="P:Blitz.Reliability.Demo.Models.ReliabilityTracking.Tries">
             <summary>
             Retres
             </summary>
@@ -147,6 +159,11 @@
             Number of retries exceeded
             </summary>
         </member>
+        <member name="F:Blitz.Reliability.Demo.Models.UnitOfWorkStatus.Success">
+            <summary>
+            Success
+            </summary>
+        </member>
         <member name="P:Blitz.Reliability.Demo.Program.ProgramMetadata">
             <summary>
             Semantic Version, etc from Assembly Metadata
@@ -192,11 +209,17 @@
             Unit of Work Data
             </summary>
         </member>
-        <member name="M:Blitz.Reliability.Demo.Transactions.UnitOfWork.MakeUnitOfWork">
+        <member name="M:Blitz.Reliability.Demo.Transactions.UnitOfWork.MakeUnitOfWork(System.Int64)">
             <summary>
             Factory to make units of work
             </summary>
             <returns>A Unit of Work</returns>
+        </member>
+        <member name="M:Blitz.Reliability.Demo.Transactions.UnitOfWork.ToString">
+            <summary>
+            Debug string
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Blitz.Reliability.Demo.Workers.Worker">
             <summary>

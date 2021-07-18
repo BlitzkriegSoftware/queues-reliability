@@ -1,4 +1,5 @@
-﻿using Blitz.Reliability.Demo.Models;
+﻿using Blitz.Reliability.Demo.Extensions;
+using Blitz.Reliability.Demo.Models;
 using System;
 using System.Collections.Generic;
 
@@ -12,7 +13,7 @@ namespace Blitz.Reliability.Demo.Transactions
         /// <summary>
         /// ID
         /// </summary>
-        public Guid Id { get; set; }
+        public long Id { get; set; }
         /// <summary>
         /// Tracking
         /// </summary>
@@ -26,18 +27,18 @@ namespace Blitz.Reliability.Demo.Transactions
         /// Factory to make units of work
         /// </summary>
         /// <returns>A Unit of Work</returns>
-        public static UnitOfWork MakeUnitOfWork()
+        public static UnitOfWork MakeUnitOfWork(long id)
         {
             var dice = new BlitzkriegSoftware.SecureRandomLibrary.SecureRandom();
-            int MaxData = dice.Next(5, 11);
+            int MaxData = dice.Next(1, 3);
             var uow = new UnitOfWork()
             {
-                Id = Guid.NewGuid(),
+                Id = id,
                 Tracking = new ReliabilityTracking()
                 {
                     Error = null,
                     LastOperationStamp = DateTime.UtcNow,
-                    Retries = 0,
+                    Tries = 0,
                     Status = UnitOfWorkStatus.New
                 },
                 UnitOfWorkData = new Dictionary<string, object>()
@@ -45,10 +46,19 @@ namespace Blitz.Reliability.Demo.Transactions
 
             for (int i = 0; i < MaxData; i++)
             {
-                uow.UnitOfWorkData.Add(Convert.ToChar(65 + i).ToString(), Faker.Lorem.Sentence(dice.Next(3, 9)));
+                uow.UnitOfWorkData.Add(Convert.ToChar(65 + i).ToString(), Faker.Lorem.Words(dice.Next(1, 3)));
             }
 
             return uow;
+        }
+
+        /// <summary>
+        /// Debug string
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return $"Id: {Id}, RT: {Tracking}, Data: {UnitOfWorkData.ToJson()}";
         }
 
     }

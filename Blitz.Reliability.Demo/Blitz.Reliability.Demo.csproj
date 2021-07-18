@@ -36,6 +36,8 @@
 	<ItemGroup>
 	  <Content Remove="C:\Users\stuartw\.nuget\packages\blitzkriegsoftware.securerandomlibrary\1.0.3\contentFiles\any\netstandard2.0\BlitzkriegSoftware.SecureRandomLibrary.md" />
 	  <Content Remove="C:\Users\stuartw\.nuget\packages\blitzkriegsoftware.securerandomlibrary\1.0.3\contentFiles\any\netstandard2.0\BlitzkriegSoftware.SecureRandomLibrary.xml" />
+	  <Content Remove="C:\Users\stuartw\.nuget\packages\faker.data.core.blitz\1.2.0\contentFiles\any\netstandard2.1\Faker.Data.Core.md" />
+	  <Content Remove="C:\Users\stuartw\.nuget\packages\faker.data.core.blitz\1.2.0\contentFiles\any\netstandard2.1\Faker.Data.Core.xml" />
 	</ItemGroup>
 
 	<ItemGroup>

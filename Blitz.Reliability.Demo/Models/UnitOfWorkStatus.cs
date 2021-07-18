@@ -28,6 +28,10 @@ namespace Blitz.Reliability.Demo.Models
         /// <summary>
         /// Number of retries exceeded
         /// </summary>
-        Expired = 4
+        Expired = 4,
+        /// <summary>
+        /// Success
+        /// </summary>
+        Success = 5
     }
 }

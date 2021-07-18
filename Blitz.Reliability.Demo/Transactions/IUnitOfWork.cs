@@ -12,7 +12,7 @@ namespace Blitz.Reliability.Demo.Transactions
         /// <summary>
         /// Unit of Work Identifier
         /// </summary>
-        Guid Id { get; set; }
+        long Id { get; set; }
 
         /// <summary>
         /// Reliability Component
