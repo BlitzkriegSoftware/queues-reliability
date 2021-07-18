@@ -46,7 +46,7 @@ namespace Blitz.Reliability.Demo.Transactions
 
             for (int i = 0; i < MaxData; i++)
             {
-                uow.UnitOfWorkData.Add(Convert.ToChar(65 + i).ToString(), Faker.Lorem.Words(dice.Next(1, 3)));
+                uow.UnitOfWorkData.Add(Convert.ToChar(65 + i).ToString(), Faker.Lorem.Word());
             }
 
             return uow;

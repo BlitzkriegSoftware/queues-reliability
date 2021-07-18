@@ -17,6 +17,8 @@ namespace Blitz.Reliability.Demo.Workers
     /// </summary>
     public class Worker : IWorker
     {
+        #region "Vars, Consts, CTOR"
+
         private readonly ILogger _logger;
         private readonly IConfigurationRoot _config;
         private static readonly BlitzkriegSoftware.SecureRandomLibrary.SecureRandom dice = new();
@@ -43,6 +45,8 @@ namespace Blitz.Reliability.Demo.Workers
             RabbitConfig = queueConfig;
         }
 
+        #endregion
+
         /// <summary>
         /// Run
         /// </summary>
@@ -63,7 +67,7 @@ namespace Blitz.Reliability.Demo.Workers
                 RabbitClient.Enqueue<Transactions.UnitOfWork>(uow, RabbitConfig);
             }
 
-            int listenFor = o.UnitOfWorkCount * 100 + 5000;
+            int listenFor = o.UnitOfWorkCount * 150 + 5000;
 
             Task.Factory.StartNew(async () =>
             {
@@ -115,7 +119,7 @@ namespace Blitz.Reliability.Demo.Workers
                     message.Tracking.Error = new InvalidOperationException("Fatal Horribleness");
                     break;
 
-                case int i when ((i >= 10) && (i < 70)): // Need to Retry
+                case int i when ((i >= 10) && (i < 50)): // Need to Retry
                     if (message.Tracking.Tries >= UnitOfWorkMaxRetries)
                     {
                         state = ReceivedMessageState.MessageRejected;
