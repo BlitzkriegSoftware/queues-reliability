@@ -26,11 +26,17 @@
 		<PackageTags>Reliability</PackageTags>
 		<AssemblyVersion>1.1.0</AssemblyVersion>
 		<InformationalVersion>1.1.0</InformationalVersion>
+		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 	  <DocumentationFile>.\Blitz.Reliability.Demo.xml</DocumentationFile>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <Content Remove="C:\Users\stuartw\.nuget\packages\blitzkriegsoftware.securerandomlibrary\1.0.3\contentFiles\any\netstandard2.0\BlitzkriegSoftware.SecureRandomLibrary.md" />
+	  <Content Remove="C:\Users\stuartw\.nuget\packages\blitzkriegsoftware.securerandomlibrary\1.0.3\contentFiles\any\netstandard2.0\BlitzkriegSoftware.SecureRandomLibrary.xml" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<None Include="..\favicon_32x32_o7Z_icon.ico" Link="favicon_32x32_o7Z_icon.ico">
@@ -54,6 +60,7 @@
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.2" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 		<PackageReference Include="RabbitMQ.Client" Version="6.2.2" />
 	</ItemGroup>
 
@@ -66,6 +73,10 @@
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Blitz.RabbitMq.Library\Blitz.RabbitMq.Library.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -172,12 +172,6 @@
             Unit of Work Data
             </summary>
         </member>
-        <member name="M:Blitz.Reliability.Demo.Transactions.IUnitOfWork.MakeUnitOfWork">
-            <summary>
-            Make a Unit of Work (for testing)
-            </summary>
-            <returns></returns>
-        </member>
         <member name="T:Blitz.Reliability.Demo.Transactions.UnitOfWork">
             <summary>
             Unit of Work
@@ -209,11 +203,27 @@
             Worker
             </summary>
         </member>
+        <member name="M:Blitz.Reliability.Demo.Workers.Worker.#ctor(Microsoft.Extensions.Logging.ILogger{Blitz.Reliability.Demo.Workers.Worker},Microsoft.Extensions.Configuration.IConfigurationRoot)">
+            <summary>
+            CTOR
+            </summary>
+            <param name="logger">ILogger</param>
+            <param name="config">IConfigurationRoot</param>
+        </member>
         <member name="M:Blitz.Reliability.Demo.Workers.Worker.Run(Blitz.Reliability.Demo.Models.CommandOptions)">
             <summary>
             Run
             </summary>
             <param name="o">CommandOptions</param>
+        </member>
+        <member name="M:Blitz.Reliability.Demo.Workers.Worker.MyQueueMessageHandler(Blitz.RabbitMq.Library.IQueueEngine,Microsoft.Extensions.Logging.ILogger,RabbitMQ.Client.IModel,RabbitMQ.Client.Events.BasicDeliverEventArgs)">
+            <summary>
+            Handler: Applies Random Unit of Work
+            </summary>
+            <param name="queueEngine">IQueueEngine</param>
+            <param name="logger">ILogger</param>
+            <param name="model">IModel</param>
+            <param name="ea">BasicDeliverEventArgs</param>
         </member>
     </members>
 </doc>

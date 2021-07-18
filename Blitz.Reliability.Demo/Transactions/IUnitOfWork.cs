@@ -23,11 +23,5 @@ namespace Blitz.Reliability.Demo.Transactions
         /// Unit of Work Data
         /// </summary>
         Dictionary<string, object> UnitOfWorkData { get; set; }
-
-        /// <summary>
-        /// Make a Unit of Work (for testing)
-        /// </summary>
-        /// <returns></returns>
-        UnitOfWork MakeUnitOfWork();
     }
 }

@@ -22,14 +22,13 @@ namespace Blitz.Reliability.Demo.Transactions
         /// </summary>
         public Dictionary<string, object> UnitOfWorkData { get; set; }
 
-        private readonly BlitzkriegSoftware.SecureRandomLibrary.SecureRandom dice = new BlitzkriegSoftware.SecureRandomLibrary.SecureRandom();
-
         /// <summary>
         /// Factory to make units of work
         /// </summary>
         /// <returns>A Unit of Work</returns>
-        public UnitOfWork MakeUnitOfWork()
+        public static UnitOfWork MakeUnitOfWork()
         {
+            var dice = new BlitzkriegSoftware.SecureRandomLibrary.SecureRandom();
             int MaxData = dice.Next(5, 11);
             var uow = new UnitOfWork()
             {

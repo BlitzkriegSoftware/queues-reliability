@@ -2,19 +2,25 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Description>1.0.0 - Basic RabbitMq helper</Description>
+    <Description>A library to help implement RabbitMQ for .NET Core 3.1 LTS</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageIcon>favicon_32x32_o7Z_icon.ico</PackageIcon>
     <PackageIconUrl />
     <RepositoryUrl>https://github.com/BlitzkriegSoftware/queues-reliability</RepositoryUrl>
     <RepositoryType>GITHUB</RepositoryType>
     <PackageTags>Enterprise Queue;Patterns;Queues</PackageTags>
-    <PackageReleaseNotes>1.0.0 - Helper library for RabbitMQ</PackageReleaseNotes>
+    <PackageReleaseNotes>1.1.0 - Updated
+1.0.0 - Basic RabbitMq helper</PackageReleaseNotes>
+    <Version>1.1.0</Version>
+    <Authors>Stuart Williams</Authors>
+    <Copyright>(c) 2021 Stuart Williams</Copyright>
+    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>.\Blitz.RabbitMq.Library.xml</DocumentationFile>
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
