@@ -241,7 +241,7 @@
         </member>
         <member name="M:Blitz.Reliability.Demo.Workers.Worker.MyQueueMessageHandler(Blitz.RabbitMq.Library.IQueueEngine,Microsoft.Extensions.Logging.ILogger,RabbitMQ.Client.IModel,RabbitMQ.Client.Events.BasicDeliverEventArgs)">
             <summary>
-            Handler: Applies Random Unit of Work
+            Handler: Processes Unit of Work
             </summary>
             <param name="queueEngine">IQueueEngine</param>
             <param name="logger">ILogger</param>

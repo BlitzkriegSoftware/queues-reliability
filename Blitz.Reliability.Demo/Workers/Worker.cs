@@ -75,7 +75,7 @@ namespace Blitz.Reliability.Demo.Workers
         }
 
         /// <summary>
-        /// Handler: Applies Random Unit of Work
+        /// Handler: Processes Unit of Work
         /// </summary>
         /// <param name="queueEngine">IQueueEngine</param>
         /// <param name="logger">ILogger</param>
@@ -97,7 +97,9 @@ namespace Blitz.Reliability.Demo.Workers
             var text = Encoding.UTF8.GetString(body.ToArray());
             var message = JsonConvert.DeserializeObject<Transactions.UnitOfWork>(text);
 
+#pragma warning disable IDE0059 // Make clear the initial state
             var state = ReceivedMessageState.SuccessfullyProcessed;
+#pragma warning restore IDE0059 // Unnecessary assignment of a value
 
             message.Tracking.LastOperationStamp = DateTime.UtcNow;
             message.Tracking.Tries++;
