@@ -40,7 +40,7 @@ namespace Blitz.RabbitMq.Library.Models
         /// <summary>
         /// Is this valid?
         /// </summary>
-        public bool isValid
+        public bool IsValid
         {
             get
             {

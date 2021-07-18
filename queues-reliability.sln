@@ -11,7 +11,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blitz.RabbitMq.Library", "Blitz.RabbitMq.Library\Blitz.RabbitMq.Library.csproj", "{F389F802-9183-451C-ABC2-0548BF0518EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blitz.Reliability.Demo", "Blitz.Reliability.Demo\Blitz.Reliability.Demo.csproj", "{95671FC8-57DD-4B80-BA0E-D18BEA8727A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blitz.Reliability.Demo", "Blitz.Reliability.Demo\Blitz.Reliability.Demo.csproj", "{95671FC8-57DD-4B80-BA0E-D18BEA8727A9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{98838972-7293-4F3B-A7A3-EFA0976EAA90}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\docker-rabbit-remove.sh = scripts\docker-rabbit-remove.sh
+		scripts\docker-rabbitmq-linux.cmd = scripts\docker-rabbitmq-linux.cmd
+		scripts\docker-rabbitmq-linux.sh = scripts\docker-rabbitmq-linux.sh
+		scripts\rabbit-peek.cmd = scripts\rabbit-peek.cmd
+		scripts\rabbit-peek.sh = scripts\rabbit-peek.sh
+		scripts\rabbitmq-web.cmd = scripts\rabbitmq-web.cmd
+		scripts\rabbitmq-web.sh = scripts\rabbitmq-web.sh
+		scripts\rabbitmqadmin.py = scripts\rabbitmqadmin.py
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

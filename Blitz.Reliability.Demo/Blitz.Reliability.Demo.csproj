@@ -1,8 +1,71 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<Copyright>Copyright © 2021 Stuart Williams</Copyright>
+		<Company>Stuart Williams</Company>
+		<Description>Demo using RabbitMQ in DotNet Core</Description>
+		<InformationalVersion>1.1.0</InformationalVersion>
+		<FileVersion>1.1.0</FileVersion>
+		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+		<PackageIcon>favicon_32x32_o7Z_icon.ico</PackageIcon>
+		<PackageIconUrl />
+		<RepositoryType>Git</RepositoryType>
+		<RepositoryUrl>https://github.com/BlitzkriegSoftware/RabbitMqDemo</RepositoryUrl>
+		<PackageTags>RabbitMqDemo</PackageTags>
+		<Copyright>Copyright © 2021 Stuart Williams</Copyright>
+		<Company>Stuart Williams</Company>
+		<Description>Demo using RabbitMQ in DotNet Core</Description>
+		<InformationalVersion>1.1.0</InformationalVersion>
+		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+		<PackageIcon>favicon_32x32_o7Z_icon.ico</PackageIcon>
+		<PackageIconUrl />
+		<RepositoryType>Git</RepositoryType>
+		<RepositoryUrl>https://github.com/BlitzkriegSoftware/queues-reliability</RepositoryUrl>
+		<PackageTags>Reliability</PackageTags>
+		<AssemblyVersion>1.1.0</AssemblyVersion>
+		<InformationalVersion>1.1.0</InformationalVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <DocumentationFile>.\Blitz.Reliability.Demo.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\favicon_32x32_o7Z_icon.ico" Link="favicon_32x32_o7Z_icon.ico">
+			<PackagePath></PackagePath>
+			<Pack>True</Pack>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="rabbitmqconfig.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="BlitzkriegSoftware.SecureRandomLibrary" Version="1.0.3" />
+		<PackageReference Include="CommandLineParser" Version="2.8.0" />
+		<PackageReference Include="Faker.Data.Core.Blitz" Version="1.2.0" />
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.10.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="5.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.2" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
+		<PackageReference Include="RabbitMQ.Client" Version="6.2.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="SecurityCodeScan.VS2019" Version="5.2.1">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Vsxmd" Version="1.4.5">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
 
 </Project>

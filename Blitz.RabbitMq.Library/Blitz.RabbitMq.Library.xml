@@ -248,7 +248,7 @@
             (optional) Route
             </summary>
         </member>
-        <member name="P:Blitz.RabbitMq.Library.Models.RabbitMqInstanceConfiguration.isValid">
+        <member name="P:Blitz.RabbitMq.Library.Models.RabbitMqInstanceConfiguration.IsValid">
             <summary>
             Is this valid?
             </summary>

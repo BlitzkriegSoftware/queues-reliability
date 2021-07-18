@@ -1,0 +1,219 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Blitz.Reliability.Demo</name>
+    </assembly>
+    <members>
+        <member name="T:Blitz.Reliability.Demo.Libs.AssembyInfoHelper">
+            <summary>
+            Helper: Assembly Info
+            <para>Translates the <c>CustomAttributeData</c> to a usable string value</para>
+            </summary>
+        </member>
+        <member name="M:Blitz.Reliability.Demo.Libs.AssembyInfoHelper.TryParse(System.Reflection.CustomAttributeData,System.String@)">
+            <summary>
+            Try Parse a <c>System.Reflection.CustomAttributeData</c> into a string
+            </summary>
+            <param name="attribute">(this)</param>
+            <param name="s">String to parse into</param>
+            <returns>True if success</returns>
+        </member>
+        <member name="T:Blitz.Reliability.Demo.Models.AssemblyVersionMetadata">
+            <summary>
+            Custom Metadata For All Blitzkireg Software Micro-Service
+            </summary>
+        </member>
+        <member name="P:Blitz.Reliability.Demo.Models.AssemblyVersionMetadata.Copyright">
+            <summary>
+            Copyright
+            </summary>
+        </member>
+        <member name="P:Blitz.Reliability.Demo.Models.AssemblyVersionMetadata.Company">
+            <summary>
+            Company
+            </summary>
+        </member>
+        <member name="P:Blitz.Reliability.Demo.Models.AssemblyVersionMetadata.Description">
+            <summary>
+            Description
+            </summary>
+        </member>
+        <member name="P:Blitz.Reliability.Demo.Models.AssemblyVersionMetadata.SemanticVersion">
+            <summary>
+            Semantic Version <para>See: semver.org</para>
+            </summary>
+        </member>
+        <member name="P:Blitz.Reliability.Demo.Models.AssemblyVersionMetadata.FileVersion">
+            <summary>
+            File Version
+            </summary>
+        </member>
+        <member name="P:Blitz.Reliability.Demo.Models.AssemblyVersionMetadata.Product">
+            <summary>
+            Product
+            </summary>
+        </member>
+        <member name="M:Blitz.Reliability.Demo.Models.AssemblyVersionMetadata.PropertySet(System.String,System.String)">
+            <summary>
+            Property Set
+            </summary>
+            <param name="name">(sic)</param>
+            <param name="value">(sic)</param>
+        </member>
+        <member name="M:Blitz.Reliability.Demo.Models.AssemblyVersionMetadata.ToString">
+            <summary>
+            Version String
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Blitz.Reliability.Demo.Models.CommandOptions">
+            <summary>
+            Command Line Switches
+            </summary>
+        </member>
+        <member name="P:Blitz.Reliability.Demo.Models.CommandOptions.Verbose">
+            <summary>
+            Verbose Output
+            </summary>
+        </member>
+        <member name="F:Blitz.Reliability.Demo.Models.CommandOptions.UnitOfWorkDefault">
+            <summary>
+            Default: Transaction Counts
+            </summary>
+        </member>
+        <member name="P:Blitz.Reliability.Demo.Models.CommandOptions.UnitOfWorkCount">
+            <summary>
+            Unit of Work Count
+            </summary>
+        </member>
+        <member name="T:Blitz.Reliability.Demo.Models.ReliabilityTracking">
+            <summary>
+            Reliability Tracking
+            </summary>
+        </member>
+        <member name="P:Blitz.Reliability.Demo.Models.ReliabilityTracking.Retries">
+            <summary>
+            Retres
+            </summary>
+        </member>
+        <member name="P:Blitz.Reliability.Demo.Models.ReliabilityTracking.Status">
+            <summary>
+            Last Status
+            </summary>
+        </member>
+        <member name="P:Blitz.Reliability.Demo.Models.ReliabilityTracking.Error">
+            <summary>
+            Error (Exception)
+            </summary>
+        </member>
+        <member name="P:Blitz.Reliability.Demo.Models.ReliabilityTracking.LastOperationStamp">
+            <summary>
+            Time Stamp
+            </summary>
+        </member>
+        <member name="M:Blitz.Reliability.Demo.Models.ReliabilityTracking.ToString">
+            <summary>
+            Debugging string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Blitz.Reliability.Demo.Models.UnitOfWorkStatus">
+            <summary>
+            Enum: Unit of Work Status
+            </summary>
+        </member>
+        <member name="F:Blitz.Reliability.Demo.Models.UnitOfWorkStatus.Unknown">
+            <summary>
+            Unknown
+            </summary>
+        </member>
+        <member name="F:Blitz.Reliability.Demo.Models.UnitOfWorkStatus.New">
+            <summary>
+            New
+            </summary>
+        </member>
+        <member name="F:Blitz.Reliability.Demo.Models.UnitOfWorkStatus.Retried">
+            <summary>
+            Retried
+            </summary>
+        </member>
+        <member name="F:Blitz.Reliability.Demo.Models.UnitOfWorkStatus.Fatal">
+            <summary>
+            Fatal Error
+            </summary>
+        </member>
+        <member name="F:Blitz.Reliability.Demo.Models.UnitOfWorkStatus.Expired">
+            <summary>
+            Number of retries exceeded
+            </summary>
+        </member>
+        <member name="P:Blitz.Reliability.Demo.Program.ProgramMetadata">
+            <summary>
+            Semantic Version, etc from Assembly Metadata
+            </summary>
+        </member>
+        <member name="T:Blitz.Reliability.Demo.Transactions.IUnitOfWork">
+            <summary>
+            Unit of work
+            </summary>
+        </member>
+        <member name="P:Blitz.Reliability.Demo.Transactions.IUnitOfWork.Id">
+            <summary>
+            Unit of Work Identifier
+            </summary>
+        </member>
+        <member name="P:Blitz.Reliability.Demo.Transactions.IUnitOfWork.Tracking">
+            <summary>
+            Reliability Component
+            </summary>
+        </member>
+        <member name="P:Blitz.Reliability.Demo.Transactions.IUnitOfWork.UnitOfWorkData">
+            <summary>
+            Unit of Work Data
+            </summary>
+        </member>
+        <member name="M:Blitz.Reliability.Demo.Transactions.IUnitOfWork.MakeUnitOfWork">
+            <summary>
+            Make a Unit of Work (for testing)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Blitz.Reliability.Demo.Transactions.UnitOfWork">
+            <summary>
+            Unit of Work
+            </summary>
+        </member>
+        <member name="P:Blitz.Reliability.Demo.Transactions.UnitOfWork.Id">
+            <summary>
+            ID
+            </summary>
+        </member>
+        <member name="P:Blitz.Reliability.Demo.Transactions.UnitOfWork.Tracking">
+            <summary>
+            Tracking
+            </summary>
+        </member>
+        <member name="P:Blitz.Reliability.Demo.Transactions.UnitOfWork.UnitOfWorkData">
+            <summary>
+            Unit of Work Data
+            </summary>
+        </member>
+        <member name="M:Blitz.Reliability.Demo.Transactions.UnitOfWork.MakeUnitOfWork">
+            <summary>
+            Factory to make units of work
+            </summary>
+            <returns>A Unit of Work</returns>
+        </member>
+        <member name="T:Blitz.Reliability.Demo.Workers.Worker">
+            <summary>
+            Worker
+            </summary>
+        </member>
+        <member name="M:Blitz.Reliability.Demo.Workers.Worker.Run(Blitz.Reliability.Demo.Models.CommandOptions)">
+            <summary>
+            Run
+            </summary>
+            <param name="o">CommandOptions</param>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,15 @@
+{
+  "Host": "localhost",
+  "Port": 5672,
+  "Username": "guest",
+  "Password": "guest",
+  "ExchangeName": "myExchange",
+  "QueueName": "myQueue",
+  "RoutingKey": "myRoutingKey",
+  "MessageExpiration": "36000000",
+  "MessageDeliveryMode": 2,
+  "MessagePersistent": true,
+  "QueueDurable": true,
+  "QueueExclusive": false,
+  "QueueAutoDelete": false
+}
